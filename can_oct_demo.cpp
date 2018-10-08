@@ -47,6 +47,8 @@ bool CanDemo::ReleaseBrake() {
   memcpy((&_msg.frame.data), _releaseBrake, MSGLEN);
   _msg.msg_head.opcode = TX_DELETE;
   if(write(_s, &_msg, sizeof(_msg)) < 0) {
+      perror(CLASSNAME ": write: TX_DELETE");
+      return false;
   }
 
   _msg.msg_head.opcode = TX_SEND;
